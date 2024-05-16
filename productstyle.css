@@ -1,20 +1,7 @@
 body{
   font-family:'RobotoSlab-Regular';
 }
-.quick-nav{
-  display:flex;
-  flex-direction: row;
-  margin-left:70px;
-  transform:translateY(50px);
-  a,p{
-    text-decoration: none;
-    color:black;
-    padding-right:20px;
-  }
-  a:hover{
-    color:#d49d50;
-  }
-}
+
 
 h1{
   font-size:30px;
