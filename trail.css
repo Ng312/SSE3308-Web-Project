@@ -1,0 +1,17 @@
+.trail {
+    position: absolute;
+    width: 5px;
+    height: 5px;
+    background: rgb(245, 255, 102);
+    border-radius: 50%;
+    pointer-events: none;
+    z-index: 9999;
+    animation: fadeOut 1s forwards;
+    opacity: 1;
+}
+
+@keyframes fadeOut {
+    to {
+        opacity: 0;
+    }
+}
