@@ -1,5 +1,5 @@
 
-.login-form{
+.login-form,.register-form{
     width:500px;
     padding:30px 60px;
     margin: 100px 0;
@@ -9,7 +9,7 @@
     border-radius:20px;
 }
 
-.login-form h1{
+.login-form h1,.register-form h1{
   font-size:30px;
   margin-bottom:60px;
   margin-top:40px
