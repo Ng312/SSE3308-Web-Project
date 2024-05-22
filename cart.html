@@ -37,9 +37,48 @@
             <p>Shopping Cart</p>
         </div>
         <!--Shopping Cart-->
-        <div class = "cart">
-            
-        </div>
+        <section>
+            <div class="container">
+                  <h1 class="title">Shopping Cart</h1>
+                  <div class="row">
+                  <table id="shoppingCart" class="table">
+                    <thead>
+                        <tr>
+                            <th class="product-column">Product</th>
+                            <th class="small-column">Price</th>
+                            <th class="small-column">Quantity</th>
+                            <th class="small-column"></th>
+                          </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <td class="product">
+                          <div class="row">
+                            <div class="col-md-3 text-left">
+                              <img src="peanut butter jar.png" class="img-fluid">
+                            </div>
+                            <div class="col-md-9 text-left mt-sm-2">
+                              <p class="productname">Smooth Peanut Butter</p>
+                            </div>
+                          </div>
+                        </td>
+                        <td class="price">RM20</td>
+                        <td class="quantity">
+                          <input type="number" class="form-control text-center" value="1">
+                        </td>
+                        <td class="action text-center">
+                          <button class="btn btn-sm">
+                            <img src="remove.png" alt="Remove">
+                          </button>
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table>  
+                </div>
+                <button class = "btn-lg btn-block checkout">Checkout</button>
+            </div>
+          </section>
+          
         <!--Contact form & Footer-->
         <footer class="bg-body-tertiary text-lg-start" style="background-color: #f1e2c5">
             <div class="row">
