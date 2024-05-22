@@ -3,7 +3,7 @@ section{
     margin: 80px auto;
     width:1000px;
     border-radius:20px;
-    box-shadow: 15px 10px 30px rgba(0,0,0,0.3);
+    box-shadow: 0 10px 20px rgba(54, 54, 54, 0.5);
 }
 .title{
     font-size:30px;
@@ -33,11 +33,10 @@ section{
     border:none;
     outline:none;
     transform:translateY(40px);
-    background-color:#e8cc94;
+    background-color:#f1d59c;
     transition:0.2s ease-in-out;
     &:hover{
-        color:#ffffff;
-        background-color: #bc884c;
+        background-color: #e6b249;
     }
     &:focus{
         outline:none;
