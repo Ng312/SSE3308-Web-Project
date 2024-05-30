@@ -39,6 +39,7 @@ document.addEventListener("DOMContentLoaded", function () {
   }
 
   // Function to display product detail
+
   function showDetail() {
     let detailHTML = document.querySelector(".product_detail");
     if (detailHTML) {
@@ -54,56 +55,49 @@ document.addEventListener("DOMContentLoaded", function () {
         if (product.nutrition_facts) {
           const nf = product.nutrition_facts;
           nutritionHtml = `
-                        <table>
-                            <tr><th colspan="2">Nutrition Facts</th></tr>
-                            <tr><td style = "padding-right:100px;">Ingredients</td><td>${nf.ingredients.join(
-                              ", "
-                            )}</td></tr>
-                            <tr><td>Serving Size</td><td>${
-                              nf.serving_size
-                            }</td></tr>
-                            <tr><td>Calories</td><td>${nf.calories}</td></tr>
-                            <tr><td>Total Fat</td><td>${nf.total_fat.value}g (${
-            nf.total_fat.percent
-          }%)</td></tr>
-                            <tr><td>Cholesterol</td><td>${
-                              nf.cholesterol.value
-                            }mg (${nf.cholesterol.percent}%)</td></tr>
-                            <tr><td>Sodium</td><td>${nf.sodium.value}mg (${
-            nf.sodium.percent
-          }%)</td></tr>
-                            <tr><td>Total Carbohydrate</td><td>${
-                              nf.total_carbohydrate.value
-                            }g (${nf.total_carbohydrate.percent}%)</td></tr>
-                            <tr><td>Sugars</td><td>${nf.sugars.value}g</td></tr>
-                            <tr><td>Protein</td><td>${
-                              nf.protein.value
-                            }g</td></tr>
-                        </table>
-                    `;
+          <table>
+              <tr><th colspan="2">Nutrition Facts</th></tr>
+              <tr><td style="padding-right:100px;">Ingredients</td><td>${nf.ingredients.join(", ")}</td></tr>
+              <tr><td>Serving Size</td><td>${nf.serving_size}</td></tr>
+              <tr><td>Calories</td><td>${nf.calories}</td></tr>
+              <tr><td>Total Fat</td><td>${nf.total_fat.value}g (${nf.total_fat.percent}%)</td></tr>
+              <tr><td>Cholesterol</td><td>${nf.cholesterol.value}mg (${nf.cholesterol.percent}%)</td></tr>
+              <tr><td>Sodium</td><td>${nf.sodium.value}mg (${nf.sodium.percent}%)</td></tr>
+              <tr><td>Total Carbohydrate</td><td>${nf.total_carbohydrate.value}g (${nf.total_carbohydrate.percent}%)</td></tr>
+              <tr><td>Sugars</td><td>${nf.sugars.value}g</td></tr>
+              <tr><td>Protein</td><td>${nf.protein.value}g</td></tr>
+          </table>
+        `;
         }
 
         let detailDiv = document.createElement("div");
         detailDiv.className = "card";
         detailDiv.innerHTML = `
-                <div class="imgBx">
-                    <img src="${product.image}" alt="Product Image">
-                </div>
-                <div class="details">
-                    <div class="content">
-                        <div class="description">
-                            <h2>${product.name}<br></h2>
-                            <p>${product.description}</p>
-                            <p>${nutritionHtml}</p>
-                        </div>
-                        <div class = "purchase">
-                        <h3>${product.price}</h3>
-                        <button>Add to Cart</button>
-                        </div>
-                    </div>
-                </div>
-                `;
+        <div class="imgBx">
+          <img src="${product.image}" alt="Product Image">
+        </div>
+        <div class="details">
+          <div class="content">
+            <div class="description">
+              <h2>${product.name}<br></h2>
+              <p>${product.description}</p>
+              <p>${nutritionHtml}</p>
+            </div>
+            <div class="purchase">
+              <h3>${product.price}</h3>
+              <button class="addToCartButton">Add to Cart</button>
+            </div>
+          </div>
+        </div>
+      `;
         detailHTML.appendChild(detailDiv);
+
+        // Add event listener to the "Add to Cart" button
+        const addToCartButton = detailDiv.querySelector(".addToCartButton");
+        addToCartButton.addEventListener("click", function () {
+          showDialog();
+        });
+
       } else {
         console.error("Product not found");
       }
@@ -111,6 +105,36 @@ document.addEventListener("DOMContentLoaded", function () {
       console.error("Product detail not found");
     }
   }
+
+  function showDialog() {
+    const dialogOverlay = document.getElementById("dialogOverlay");
+    const dialogBox = document.getElementById("dialogBox");
+
+    // Show the dialog box and overlay
+    dialogOverlay.style.display = "block";
+    dialogBox.style.display = "block";
+
+    // Add event listeners for the buttons in the dialog box
+    document.getElementById("viewCartButton").addEventListener("click", function () {
+      window.location.href = "cart.html"; // Redirect to cart page
+    });
+
+    document.getElementById("checkoutButton").addEventListener("click", function () {
+      window.location.href = "checkout.html"; // Redirect to checkout page
+    });
+
+    dialogOverlay.addEventListener("click", closeDialog);
+  }
+
+  function closeDialog() {
+    const dialogOverlay = document.getElementById("dialogOverlay");
+    const dialogBox = document.getElementById("dialogBox");
+
+    // Hide the dialog box and overlay
+    dialogOverlay.style.display = "none";
+    dialogBox.style.display = "none";
+  }
+
 
   // Fetch product data
   fetch("products.json")
@@ -285,10 +309,18 @@ document.addEventListener("DOMContentLoaded", function () {
     },
   });
 });
+//alert message success after submit
 document.querySelector("form").addEventListener("submit", function (e) {
   e.preventDefault();
 
   let successMessage = `Success!!!`;
 
   alert(successMessage);
+});
+
+//print function
+const printBtn = document.getElementById('print');
+
+printBtn.addEventListener('click', function() {
+  window.print();
 });
