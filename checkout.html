@@ -14,27 +14,36 @@
 </head>
 
 <body>
-    <!-- Navigation bar -->
+    <div id = "trailer"></div>
+    <!--Navigation bar-->
     <div class="container-fluid header-container">
-        
         <nav class="navbar navbar-expand-md navbar-light">
             <div class="brand">
                 <h1>Spreads</h1>
                 <img class="icon" src="/img/logo.png" alt="jar icon">
-            </div>
+            </div>   
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#main-navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
             <div class="collapse navbar-collapse" id="main-navigation">
                 <ul class="navbar-nav ml-auto">
                     <li class="nav-item"><a class="nav-link" href="index.html">Home</a></li>
-                    <li class="nav-item"><a class="nav-link" href="product.html">Products</a></li>
-                    <li class="nav-item"><a class="nav-link" href="faq.html">FAQs</a></li>
-                    <li class="nav-item"><a class="nav-link" href="#contact-us">Contact Us</a></li>
-                    <li class="nav-item"><a class="cart" href="cart.html"><img src="/img/cart.png" class="avatar"></a>
-                    </li>
-                    <li class="nav-item"><a class="user" href="login.html"><img src="/img/user.png" class="avatar"></a>
-                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="product.html" id="navbarDropdown" role="button" aria-haspopup="true" aria-expanded="false">
+                            Products
+                        </a>
+                        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                            <a class="dropdown-item" href="product.html">Peanut Butter</a>
+                            <a class="dropdown-item" href="product.html">Almond Butter</a>
+                            <a class="dropdown-item" href="product.html">Pistachio Butter</a>
+                            <a class="dropdown-item" href="product.html">Cashew Butter</a>
+                            <a class="dropdown-item" href="product.html">Gift Set</a>
+                        </div>
+                    </li>                    
+                    <li class="nav-item"><a class="nav-link" href="faq.html">FAQs</a></li>    
+                    <li class="nav-item"><a class="nav-link" href="#contact-us">Contact Us</a></li>                   
+                    <li class="nav-item"><a class="cart" href="cart.html"><img src="/img/cart.png" class="avatar"></a></li> 
+                    <li class="nav-item"><a class="user" href="login.html"><img src="/img/user.png" class="avatar"></a></li>   
                 </ul>
             </div>
         </nav>
@@ -140,7 +149,8 @@
                             alt="Checkout Icon">Place Order</button>
                 </div>
             </div>
-            <button id="print"><i class="fas fa-print"></i></button>  <!-- button to print -->
+            <!-- button to print -->
+            <button id="print"><i class="fas fa-print"></i></button>  
         </form>
     </div>
 

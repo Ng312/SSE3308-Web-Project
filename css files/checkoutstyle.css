@@ -74,6 +74,7 @@
   button:hover {
     background-color: #e6b249;
   }
+
   .icon {
     margin: 5px 0;
     transform: translateX(-30px);
@@ -95,9 +96,11 @@
   }
 }
 #print {
-  display: flex;
-  justify-content: space-between;
-  align-items:center;
+  background:none;
+  border:none;
+  font-size:30px;
+  transform:translateX(470px);
+
 }
 @media print {
   body * {

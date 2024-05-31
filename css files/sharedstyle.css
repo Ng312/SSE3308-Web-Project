@@ -1,6 +1,22 @@
 html {
      scroll-behavior: smooth;
    }
+#trailer{
+     height:20px;
+     width:20px;
+     background-color:#b9996b;
+     border-radius:20px;
+     position:fixed;
+     z-index:10000;
+     pointer-events:none;
+     opacity:0;
+     transition:opacity 500ms ease;
+}
+
+body:hover > #trailer{
+     opacity:1;
+}
+
 body,.header-container,footer {
     padding: 0;
     margin: 0;
@@ -57,7 +73,21 @@ body,.header-container,footer {
 .nav-link:hover:before {
      width: 100%;
 }
-
+/* Dropdown on hover */
+.nav-item.dropdown:hover .dropdown-menu {
+     display: block;
+     padding:10px 15px;
+     border-radius:10px;
+ }
+ 
+ .dropdown-item:hover{
+     background-color: #af8459;
+     color:#ffffff
+ }
+ 
+.dropdown-item:active{
+     background-color: #b9996b;
+}
 .brand h1 {
 font-family: 'munday';
 font-size: 40px;
@@ -127,6 +157,7 @@ color: #646464;
 .input:focus {
 border-bottom-color: #000000;
 }
+
 .input:focus::placeholder{
 opacity:30%;
 }
@@ -172,12 +203,5 @@ transform:translateY(100px);
     font-weight: 400;
     font-style: normal;
   }
-/* Dropdown on hover */
-.nav-item.dropdown:hover .dropdown-menu {
-     display: block;
- }
- 
- .nav-item.dropdown:hover .nav-link {
-     color: #000;
- }
+
  

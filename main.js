@@ -1,4 +1,12 @@
 document.addEventListener("DOMContentLoaded", function () {
+    // Mouse Trailer Function
+    const trailer = document.getElementById("trailer");
+    window.onmousemove = e => {
+      const x = e.clientX - trailer.offsetWidth / 2;
+      const y = e.clientY - trailer.offsetHeight / 2;
+      trailer.style.transform = `translate(${x}px,${y}px)`;
+    };
+  
   let productData = null;
   let productDetail = null;
 
@@ -309,14 +317,34 @@ document.addEventListener("DOMContentLoaded", function () {
     },
   });
 });
-//alert message success after submit
-document.querySelector("form").addEventListener("submit", function (e) {
-  e.preventDefault();
 
-  let successMessage = `Success!!!`;
+  // Form Validation
+  function validateForm(formId) {
+    const formInputs = document.querySelectorAll(`#${formId} input`);
+    for (let input of formInputs) {
+      if (input.value.trim() === "") {
+        alert("Please fill out all fields.");
+        return false;
+      }
+    }
+    return true;
+  }
+  // Form submit handler
+  function handleFormSubmit(event) {
+    event.preventDefault();
+    const formId = event.target.id;
+    if (validateForm(formId)) {
+      let successMessage = `Success!!!`;
+      alert(successMessage);
+    }
+  }
 
-  alert(successMessage);
-});
+  // Attach submit event listeners to all forms
+  const forms = document.querySelectorAll("form");
+  forms.forEach((form) => {
+    form.addEventListener("submit", handleFormSubmit);
+  });
+
 
 //print function
 const printBtn = document.getElementById('print');
