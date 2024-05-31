@@ -172,3 +172,12 @@ transform:translateY(100px);
     font-weight: 400;
     font-style: normal;
   }
+/* Dropdown on hover */
+.nav-item.dropdown:hover .dropdown-menu {
+     display: block;
+ }
+ 
+ .nav-item.dropdown:hover .nav-link {
+     color: #000;
+ }
+ 

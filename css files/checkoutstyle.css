@@ -94,3 +94,17 @@
     margin:0 20px 20px 20px;
   }
 }
+#print {
+  display: flex;
+  justify-content: space-between;
+  align-items:center;
+}
+@media print {
+  body * {
+    display: none;
+  }
+  #content, #content * {
+    display: block;
+  }
+}
+

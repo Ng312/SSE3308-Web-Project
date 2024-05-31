@@ -9,6 +9,7 @@
     <link rel="stylesheet" href="/css files/sharedstyle.css">
 </head>
 <body>
+    
     <!--Navigation bar-->
     <div class="container-fluid header-container">
         <nav class="navbar navbar-expand-md navbar-light">
@@ -22,7 +23,18 @@
             <div class="collapse navbar-collapse" id="main-navigation">
                 <ul class="navbar-nav ml-auto">
                     <li class="nav-item"><a class="nav-link" href="index.html">Home</a></li>
-                    <li class="nav-item"><a class="nav-link" href="product.html">Products</a></li>   
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="product.html" id="navbarDropdown" role="button" aria-haspopup="true" aria-expanded="false">
+                            Products
+                        </a>
+                        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                            <a class="dropdown-item" href="product.html">Peanut Butter</a>
+                            <a class="dropdown-item" href="product.html">Almond Butter</a>
+                            <a class="dropdown-item" href="product.html">Pistachio Butter</a>
+                            <a class="dropdown-item" href="product.htmll">Cashew Butter</a>
+                            <a class="dropdown-item" href="product.html">Gift Set</a>
+                        </div>
+                    </li>                    
                     <li class="nav-item"><a class="nav-link" href="faq.html">FAQs</a></li>    
                     <li class="nav-item"><a class="nav-link" href="#contact-us">Contact Us</a></li>                   
                     <li class="nav-item"><a class="cart" href="cart.html"><img src="/img/cart.png" class="avatar"></a></li> 
@@ -42,6 +54,7 @@
         <div class="carousel-inner">
             <div class="carousel-item active first-carousel">
                 <div class="container-fluid">
+                    <div class="clock"></div> <!-- Clock element -->
                     <div class="overlay"></div>
                     <div class="row gx-0">
                         <div class="col-7">
@@ -58,12 +71,14 @@
             </div>
             <div class="carousel-item second-carousel">
                 <img class="d-block w-100" src="/img/bg2.jpg" alt="Second slide">
+                <div class="clock"></div> <!-- Clock element -->
                 <div class="overlay"></div>
                 <h3>Explore a world of nutty bliss with our assortment of spreads</h3>
                 <a href="product.html"><button class="btn btn-warning btn-lg">Get it now !</button></a>
             </div>
             <div class="carousel-item third-carousel">
                 <img class="d-block w-100" src="/img/bg3.jpeg" alt="Third slide">
+                <div class="clock"></div> <!-- Clock element -->
                 <div class="overlay"></div>
                 <h4>Have a question ? Send us a message !</h4>
                 <a href="#contact-us"><button class="btn btn-light btn-lg">Contact Us</button></a>
@@ -96,7 +111,15 @@
             </div>
         </div>
     </div>
+
         <!-- Product cards -->
+        <div id="myModal" class="modal">
+            <div class="modal-content">            
+              <div id="modalImage"></div>
+              <div id="modalContent"></div>
+            </div>
+          </div>
+          
         <section>
             <div class="container-fluid product-card">
                 <p class="pcheader">Not sure what to choose? Let's learn more about the spreads!</p>
