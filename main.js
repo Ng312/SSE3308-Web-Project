@@ -317,7 +317,6 @@ document.addEventListener("DOMContentLoaded", function () {
     },
   });
 });
-
   // Form Validation
   function validateForm(formId) {
     const formInputs = document.querySelectorAll(`#${formId} input`);
@@ -329,26 +328,3 @@ document.addEventListener("DOMContentLoaded", function () {
     }
     return true;
   }
-  // Form submit handler
-  function handleFormSubmit(event) {
-    event.preventDefault();
-    const formId = event.target.id;
-    if (validateForm(formId)) {
-      let successMessage = `Success!!!`;
-      alert(successMessage);
-    }
-  }
-
-  // Attach submit event listeners to all forms
-  const forms = document.querySelectorAll("form");
-  forms.forEach((form) => {
-    form.addEventListener("submit", handleFormSubmit);
-  });
-
-
-//print function
-const printBtn = document.getElementById('print');
-
-printBtn.addEventListener('click', function() {
-  window.print();
-});
