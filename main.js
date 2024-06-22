@@ -1,14 +1,13 @@
 document.addEventListener("DOMContentLoaded", function () {
-    // Mouse Trailer Function
-    const trailer = document.getElementById("trailer");
-    window.onmousemove = e => {
-      const x = e.clientX - trailer.offsetWidth / 2;
-      const y = e.clientY - trailer.offsetHeight / 2;
-      trailer.style.transform = `translate(${x}px,${y}px)`;
-    };
-  
+  // Mouse Trailer Function
+  const trailer = document.getElementById("trailer");
+  window.onmousemove = e => {
+    const x = e.clientX - trailer.offsetWidth / 2;
+    const y = e.clientY - trailer.offsetHeight / 2;
+    trailer.style.transform = `translate(${x}px,${y}px)`;
+  };
+
   let productData = null;
-  let productDetail = null;
 
   // Function to display products
   function addProduct() {
@@ -20,97 +19,27 @@ document.addEventListener("DOMContentLoaded", function () {
           let productDiv = document.createElement("div");
           productDiv.className = "wrapper";
           productDiv.innerHTML = `
-                        <div class="container" data-id="${product.id}">
-                            <div class="top" style="background: url('${product.image}') no-repeat center; background-size: 60%;"></div>
-                            <div class="bottom">
-                                <div class="left">
-                                    <div class="details">
-                                        <h2>${product.name}</h2>
-                                        <p>${product.price}</p>
-                                    </div>
-                                    <div class="buy"><img src="/img/cart.png" alt="Cart Icon"></div>
-                                </div>
-                            </div>
-                        </div>
-                    `;
+            <div class="container" data-id="${product.id}">
+              <div class="top" style="background: url('${product.image}') no-repeat center; background-size: 60%;"></div>
+              <div class="bottom">
+                <div class="left">
+                  <div class="details">
+                    <h2>${product.name}</h2>
+                    <p>${product.price}</p>
+                  </div>
+                  <div class="buy"><img src="/img/cart.png" alt="Cart Icon"></div>
+                </div>
+              </div>
+            </div>
+          `;
           productlistHTML.appendChild(productDiv);
-        });
 
-        document.querySelectorAll(".container").forEach((container) => {
-          container.addEventListener("click", function () {
+          productDiv.querySelector(".container").addEventListener("click", function () {
             let productId = this.getAttribute("data-id");
-            window.location.href = "/detail.html?id=" + productId;
+            window.location.href = "/product_detail.php?id=" + productId;
           });
         });
       }
-    }
-  }
-
-  // Function to display product detail
-
-  function showDetail() {
-    let detailHTML = document.querySelector(".product_detail");
-    if (detailHTML) {
-      detailHTML.innerHTML = "";
-
-      const urlParams = new URLSearchParams(window.location.search);
-      const productId = urlParams.get("id");
-
-      const product = productDetail.find((p) => p.id == productId);
-
-      if (product) {
-        let nutritionHtml = "";
-        if (product.nutrition_facts) {
-          const nf = product.nutrition_facts;
-          nutritionHtml = `
-          <table>
-              <tr><th colspan="2">Nutrition Facts</th></tr>
-              <tr><td style="padding-right:100px;">Ingredients</td><td>${nf.ingredients.join(", ")}</td></tr>
-              <tr><td>Serving Size</td><td>${nf.serving_size}</td></tr>
-              <tr><td>Calories</td><td>${nf.calories}</td></tr>
-              <tr><td>Total Fat</td><td>${nf.total_fat.value}g (${nf.total_fat.percent}%)</td></tr>
-              <tr><td>Cholesterol</td><td>${nf.cholesterol.value}mg (${nf.cholesterol.percent}%)</td></tr>
-              <tr><td>Sodium</td><td>${nf.sodium.value}mg (${nf.sodium.percent}%)</td></tr>
-              <tr><td>Total Carbohydrate</td><td>${nf.total_carbohydrate.value}g (${nf.total_carbohydrate.percent}%)</td></tr>
-              <tr><td>Sugars</td><td>${nf.sugars.value}g</td></tr>
-              <tr><td>Protein</td><td>${nf.protein.value}g</td></tr>
-          </table>
-        `;
-        }
-
-        let detailDiv = document.createElement("div");
-        detailDiv.className = "card";
-        detailDiv.innerHTML = `
-        <div class="imgBx">
-          <img src="${product.image}" alt="Product Image">
-        </div>
-        <div class="details">
-          <div class="content">
-            <div class="description">
-              <h2>${product.name}<br></h2>
-              <p>${product.description}</p>
-              <p>${nutritionHtml}</p>
-            </div>
-            <div class="purchase">
-              <h3>${product.price}</h3>
-              <button class="addToCartButton">Add to Cart</button>
-            </div>
-          </div>
-        </div>
-      `;
-        detailHTML.appendChild(detailDiv);
-
-        // Add event listener to the "Add to Cart" button
-        const addToCartButton = detailDiv.querySelector(".addToCartButton");
-        addToCartButton.addEventListener("click", function () {
-          showDialog();
-        });
-
-      } else {
-        console.error("Product not found");
-      }
-    } else {
-      console.error("Product detail not found");
     }
   }
 
@@ -143,7 +72,6 @@ document.addEventListener("DOMContentLoaded", function () {
     dialogBox.style.display = "none";
   }
 
-
   // Fetch product data
   fetch("products.json")
     .then((response) => response.json())
@@ -152,12 +80,7 @@ document.addEventListener("DOMContentLoaded", function () {
         throw new Error("Invalid data format");
       }
       productData = data;
-      productDetail = data;
       addProduct();
-
-      if (window.location.pathname.endsWith("detail.html")) {
-        showDetail();
-      }
     })
     .catch((error) => console.error("Error fetching the product data:", error));
 
@@ -189,31 +112,22 @@ document.addEventListener("DOMContentLoaded", function () {
     });
   });
 
-  // Checkout Page
-  window.togglePaymentForm = function (formId) {
-    const forms = ["card-form", "ewallet-form"];
-    forms.forEach((id) => {
-      document.getElementById(id).classList.add("hidden");
+  //clock
+  function updateClock() {
+    const clockElements = document.querySelectorAll(".clock");
+    const now = new Date();
+    const hours = now.getHours().toString().padStart(2, "0");
+    const minutes = now.getMinutes().toString().padStart(2, "0");
+    const seconds = now.getSeconds().toString().padStart(2, "0");
+
+    clockElements.forEach((clockElement) => {
+      clockElement.textContent = `${hours}:${minutes}:${seconds}`;
     });
-    document.getElementById(formId).classList.remove("hidden");
-  };
+  }
+
+  setInterval(updateClock, 1000); // Update the clock every second
+  updateClock(); // Initial call to display the clock immediately
 });
-
-//clock
-function updateClock() {
-  const clockElements = document.querySelectorAll(".clock");
-  const now = new Date();
-  const hours = now.getHours().toString().padStart(2, "0");
-  const minutes = now.getMinutes().toString().padStart(2, "0");
-  const seconds = now.getSeconds().toString().padStart(2, "0");
-
-  clockElements.forEach((clockElement) => {
-    clockElement.textContent = `${hours}:${minutes}:${seconds}`;
-  });
-}
-
-setInterval(updateClock, 1000); // Update the clock every second
-updateClock(); // Initial call to display the clock immediately
 
 //pop up message on cards
 document.addEventListener("DOMContentLoaded", function () {
@@ -261,22 +175,10 @@ document.addEventListener("DOMContentLoaded", function () {
 //combo box state
 document.addEventListener("DOMContentLoaded", function () {
   var states = [
-    "Johor",
-    "Kedah",
-    "Kelantan",
-    "Melaka",
-    "Negeri Sembilan",
-    "Pahang",
-    "Perak",
-    "Perlis",
-    "Penang",
-    "Sabah",
-    "Sarawak",
-    "Selangor",
-    "Terengganu",
-    "Wilayah Persekutuan Kuala Lumpur",
-    "Wilayah Persekutuan Labuan",
-    "Wilayah Persekutuan Putrajaya",
+    "Johor", "Kedah", "Kelantan", "Melaka", "Negeri Sembilan", "Pahang",
+    "Perak", "Perlis", "Penang", "Sabah", "Sarawak", "Selangor", "Terengganu",
+    "Wilayah Persekutuan Kuala Lumpur", "Wilayah Persekutuan Labuan",
+    "Wilayah Persekutuan Putrajaya"
   ];
 
   var stateInput = document.getElementById("stateInput");
@@ -316,39 +218,4 @@ document.addEventListener("DOMContentLoaded", function () {
       return null;
     },
   });
-});
-
-  // Form Validation
-  function validateForm(formId) {
-    const formInputs = document.querySelectorAll(`#${formId} input`);
-    for (let input of formInputs) {
-      if (input.value.trim() === "") {
-        alert("Please fill out all fields.");
-        return false;
-      }
-    }
-    return true;
-  }
-  // Form submit handler
-  function handleFormSubmit(event) {
-    event.preventDefault();
-    const formId = event.target.id;
-    if (validateForm(formId)) {
-      let successMessage = `Success!!!`;
-      alert(successMessage);
-    }
-  }
-
-  // Attach submit event listeners to all forms
-  const forms = document.querySelectorAll("form");
-  forms.forEach((form) => {
-    form.addEventListener("submit", handleFormSubmit);
-  });
-
-
-//print function
-const printBtn = document.getElementById('print');
-
-printBtn.addEventListener('click', function() {
-  window.print();
 });
