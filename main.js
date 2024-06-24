@@ -43,35 +43,7 @@ document.addEventListener("DOMContentLoaded", function () {
     }
   }
 
-  function showDialog() {
-    const dialogOverlay = document.getElementById("dialogOverlay");
-    const dialogBox = document.getElementById("dialogBox");
-
-    // Show the dialog box and overlay
-    dialogOverlay.style.display = "block";
-    dialogBox.style.display = "block";
-
-    // Add event listeners for the buttons in the dialog box
-    document.getElementById("viewCartButton").addEventListener("click", function () {
-      window.location.href = "cart.html"; // Redirect to cart page
-    });
-
-    document.getElementById("checkoutButton").addEventListener("click", function () {
-      window.location.href = "checkout.html"; // Redirect to checkout page
-    });
-
-    dialogOverlay.addEventListener("click", closeDialog);
-  }
-
-  function closeDialog() {
-    const dialogOverlay = document.getElementById("dialogOverlay");
-    const dialogBox = document.getElementById("dialogBox");
-
-    // Hide the dialog box and overlay
-    dialogOverlay.style.display = "none";
-    dialogBox.style.display = "none";
-  }
-
+ 
   // Fetch product data
   fetch("products.json")
     .then((response) => response.json())

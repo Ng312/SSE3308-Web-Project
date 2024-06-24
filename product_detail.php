@@ -10,6 +10,7 @@
     <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.3/dist/umd/popper.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.min.js"></script>
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 </head>
 <body>
     <div id="trailer"></div>
@@ -119,16 +120,6 @@
         ?>
     </div>
     
-    <!-- Dialog Box -->
-    <div id="dialogOverlay" class="dialog-overlay" style="display: none;"></div>
-    <div id="dialogBox" class="dialog-box" style="display: none;">
-        <div class="dialog-content">
-            <p>The item was successfully added to your cart!</p>
-            <button id="viewCartButton">View Cart</button>
-            <button id="checkoutButton">Checkout</button>
-        </div>
-    </div>
-
     <!-- Contact form & Footer -->
     <footer class="bg-body-tertiary text-lg-start" style="background-color: #f1e2c5">
         <div class="row">
@@ -157,6 +148,77 @@
             </div>
         </div>
     </footer>
+    
+<!-- Code injected by live-server -->
+<script>
+	// <![CDATA[  <-- For SVG support
+	if ('WebSocket' in window) {
+		(function () {
+			function refreshCSS() {
+				var sheets = [].slice.call(document.getElementsByTagName("link"));
+				var head = document.getElementsByTagName("head")[0];
+				for (var i = 0; i < sheets.length; ++i) {
+					var elem = sheets[i];
+					var parent = elem.parentElement || head;
+					parent.removeChild(elem);
+					var rel = elem.rel;
+					if (elem.href && typeof rel != "string" || rel.length == 0 || rel.toLowerCase() == "stylesheet") {
+						var url = elem.href.replace(/(&|\?)_cacheOverride=\d+/, '');
+						elem.href = url + (url.indexOf('?') >= 0 ? '&' : '?') + '_cacheOverride=' + (new Date().valueOf());
+					}
+					parent.appendChild(elem);
+				}
+			}
+			var protocol = window.location.protocol === 'http:' ? 'ws://' : 'wss://';
+			var address = protocol + window.location.host + window.location.pathname + '/ws';
+			var socket = new WebSocket(address);
+			socket.onmessage = function (msg) {
+				if (msg.data == 'reload') window.location.reload();
+				else if (msg.data == 'refreshcss') refreshCSS();
+			};
+			if (sessionStorage && !sessionStorage.getItem('IsThisFirstTime_Log_From_LiveServer')) {
+				console.log('Live reload enabled.');
+				sessionStorage.setItem('IsThisFirstTime_Log_From_LiveServer', true);
+			}
+		})();
+	}
+	else {
+		console.error('Upgrade your browser. This Browser is NOT supported WebSocket for Live-Reloading.');
+	}
+	// ]]>
+</script>
+<!--js for popup message add to cart button-->
+<script>
+        function showDialog() {
+            swal({
+                text: "The item was successfully added to your cart!",
+                buttons: {
+                    viewCart: {
+                        text: "View Cart",
+                        value: "viewCart",
+                    },
+                    checkout: {
+                        text: "Checkout",
+                        value: "checkout",
+                    },
+                },
+            }).then((value) => {
+                switch (value) {
+                    case "viewCart":
+                        window.location.href = "cart.html"; // Redirect to cart page
+                        break;
+
+                    case "checkout":
+                        window.location.href = "checkout.html"; // Redirect to checkout page
+                        break;
+
+                    default:
+                        // Do nothing if the dialog is closed without a button click
+                        break;
+                }
+            });
+        }
+    </script> 
     <script src="main.js"></script>
 </body>
 </html>
