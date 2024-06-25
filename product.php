@@ -73,8 +73,47 @@ $result = $conn->query($sql);
 <body>
     <div id="trailer"></div>
     <!-- Navigation bar -->
-    <!-- (nav bar coding done here) -->
+     <div class="container-fluid header-container">
+        <nav class="navbar navbar-expand-md navbar-light">
+            <div class="brand">
+                <h1>Spreads</h1>
+                <img class="icon" src="/img/logo.png" alt="jar icon">
+            </div>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#main-navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="main-navigation">
+                <ul class="navbar-nav ml-auto">
+                    <li class="nav-item"><a class="nav-link" href="index.html">Home</a></li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="product.php" id="navbarDropdown" role="button"
+                            aria-haspopup="true" aria-expanded="false">
+                            Products
+                        </a>
+                        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                            <a class="dropdown-item" href="product.html">Peanut Butter</a>
+                            <a class="dropdown-item" href="product.html">Almond Butter</a>
+                            <a class="dropdown-item" href="product.html">Pistachio Butter</a>
+                            <a class="dropdown-item" href="product.html">Cashew Butter</a>
+                            <a class="dropdown-item" href="product.html">Gift Set</a>
+                        </div>
+                    </li>
+                    <li class="nav-item"><a class="nav-link" href="faq.html">FAQs</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#contact-us">Contact Us</a></li>
+                    <li class="nav-item"><a class="cart" href="cart.html"><img src="/img/cart.png" class="avatar"></a>
+                    </li>
+                    <li class="nav-item"><a class="user" href="login.html"><img src="/img/user.png" class="avatar"></a>
+                    </li>
+                </ul>
+            </div>
+        </nav>
+    </div>
 
+    <div class="quick-nav">
+        <a href="index.html">Home</a>
+        <p>&gt</p>
+        <p>Products</p>
+    </div>
     <!-- Products -->
     <h1>All Products</h1>
     <div class="row products">
@@ -109,6 +148,8 @@ $result = $conn->query($sql);
         <button id="addProductBtn">Add New Product</button>
     </div>
 
+
+    
     <!-- Add New Product Form (hidden by default) -->
     <div id="addProductForm" style="display: none;">
         <h2>Add New Product</h2>
@@ -178,9 +219,35 @@ $result = $conn->query($sql);
         </form>
     </div>
 
-    <!-- Footer -->
-    <footer>
-        <!-- Footer content here -->
+    <!--Contact form & Footer-->
+    <footer class="bg-body-tertiary text-lg-start" style="background-color: #f1e2c5">
+        <div class="row">
+            <div class="col-8">
+                <form class="contact-form" method="post" action="post_message.php" id="contact">
+                    <div class="form-title">
+                        <h5 id="contact-us">CONTACT</h5>
+                        <h6>US</h6>
+                    </div>
+                    <div class="form-body-item">
+                        <div class="form-group">
+                            <input type="text" id="name" class="input" placeholder="NAME" name="username" required>
+                            <input type="email" id="email" class="input" placeholder="EMAIL" name="email" required>
+                            <input type="text" id="message" class="input" placeholder="MESSAGE" name="message" required>
+                            <button type="submit" form="contact" value="Submit">Send</button>
+                        </div>
+                    </div>
+                </form>
+                <div class="copyright text-center">
+                    © 2024 Copyright:
+                    <a class="text-body" href="index.html">Spreads.com</a>
+                </div>
+
+            </div>
+            <div class="col-4">
+                <img src="/img/form-image.png" alt="spreads image">
+            </div>
+        </div>
     </footer>
+    <script src="main.js"></script>
 </body>
 </html>

@@ -10,121 +10,134 @@ document.addEventListener("DOMContentLoaded", function () {
   let productData = null;
 
 
-
-  document.addEventListener("DOMContentLoaded", () => {
-    // Fetch and display products
-    fetch("fetch_products.php")
-        .then(response => response.json())
-        .then(data => {
-            const productlistHTML = document.querySelector(".products");
-            productlistHTML.innerHTML = "";
-            if (Array.isArray(data)) {
-                data.forEach(product => {
-                    let productDiv = document.createElement("div");
-                    productDiv.className = "wrapper";
-                    productDiv.innerHTML = `
-                        <div class="container" data-id="${product.id}">
-                            <div class="top" style="background: url('${product.image}') no-repeat center; background-size: 60%;"></div>
-                            <div class="bottom">
-                                <div class="left">
-                                    <div class="details">
-                                        <h2>${product.name}</h2>
-                                        <p>${product.price}</p>
-                                    </div>
-                                    <div class="buy"><img src="/img/cart.png" alt="Cart Icon"></div>
-                                </div>
-                            </div>
-                        </div>
-                    `;
-                    productlistHTML.appendChild(productDiv);
-
-                    productDiv.querySelector(".container").addEventListener("click", function () {
-                        let productId = this.getAttribute("data-id");
-                        window.location.href = "/product_detail.php?id=" + productId;
-                    });
-                });
-            }
-        })
-        .catch(error => console.error("Error fetching the product data:", error));
-
-    // Toggle the Add Product Form
+  
+  
+    // Function to display products
+    function addProduct() {
+      let productlistHTML = document.querySelector(".products");
+      if (productlistHTML) {
+        productlistHTML.innerHTML = "";
+        if (productData != null) {
+          productData.forEach((product) => {
+            let productDiv = document.createElement("div");
+            productDiv.className = "wrapper";
+            productDiv.innerHTML = `
+              <div class="container" data-id="${product.id}">
+                <div class="top" style="background: url('${product.image}') no-repeat center; background-size: 60%;"></div>
+                <div class="bottom">
+                  <div class="left">
+                    <div class="details">
+                      <h2>${product.name}</h2>
+                      <p>${product.price}</p>
+                    </div>
+                    <div class="buy"><img src="/img/cart.png" alt="Cart Icon"></div>
+                  </div>
+                </div>
+              </div>
+            `;
+            productlistHTML.appendChild(productDiv);
+  
+            productDiv.querySelector(".container").addEventListener("click", function () {
+              let productId = this.getAttribute("data-id");
+              window.location.href = "/product_detail.php?id=" + productId;
+            });
+          });
+        }
+      }
+    }
+  
+    // Fetch product data (Example fetch from products.json)
+    fetch("products.json")
+      .then((response) => response.json())
+      .then((data) => {
+        if (!Array.isArray(data)) {
+          throw new Error("Invalid data format");
+        }
+        productData = data;
+        addProduct();
+      })
+      .catch((error) => console.error("Error fetching the product data:", error));
+  
+    // Toggle Add Product Form
     const addProductBtn = document.getElementById("addProductBtn");
     const addProductForm = document.getElementById("addProductForm");
-
+  
     addProductBtn.addEventListener("click", () => {
-        addProductForm.style.display = addProductForm.style.display === "none" ? "block" : "none";
+      addProductForm.style.display = addProductForm.style.display === "none" ? "block" : "none";
     });
-
+  
     // Handle new product form submission
     const newProductForm = document.getElementById("newProductForm");
-
+  
     newProductForm.addEventListener("submit", (event) => {
-        event.preventDefault();
-        
-        const formData = new FormData(newProductForm);
-
-        fetch("add_product.php", {
-            method: "POST",
-            body: formData,
-        })
+      event.preventDefault();
+  
+      const formData = new FormData(newProductForm);
+  
+      fetch("add_product.php", {
+        method: "POST",
+        body: formData,
+      })
         .then(response => response.json())
         .then(data => {
-            if (data.success) {
-                alert("Product added successfully!");
-                location.reload(); // Reload the page to display the new product
-            } else {
-                alert("Error adding product: " + data.message);
-            }
+          if (data.success) {
+            alert("Product added successfully!");
+            location.reload(); // Reload the page to display the new product
+          } else {
+            alert("Error adding product: " + data.message);
+          }
         })
         .catch(error => {
-            console.error("Error adding product:", error);
+          console.error("Error adding product:", error);
         });
     });
-});
-
-
-
-
-
-
-  document.addEventListener("DOMContentLoaded", () => {
-    // Toggle the Add Product Form
-    const addProductBtn = document.getElementById("addProductBtn");
-    const addProductForm = document.getElementById("addProductForm");
-
-    addProductBtn.addEventListener("click", () => {
-        addProductForm.style.display = addProductForm.style.display === "none" ? "block" : "none";
+  
+    // Close the form if clicked outside
+    document.addEventListener("click", function (event) {
+      if (!addProductForm.contains(event.target) && event.target !== addProductBtn) {
+        addProductForm.style.display = "none";
+      }
     });
+  
+    // Function to close the form
+    window.closeForm = function () {
+      addProductForm.style.display = "none";
+      document.body.style.overflow = ""; // Restore scrolling on background content
+    };
+  });
+  
 
-    // Handle new product form submission
-    const newProductForm = document.getElementById("newProductForm");
 
-    newProductForm.addEventListener("submit", (event) => {
-        event.preventDefault();
-        
-        const formData = new FormData(newProductForm);
 
-        fetch("add_product.php", {
-            method: "POST",
-            body: formData,
-        })
-        .then(response => response.json())
-        .then(data => {
-            if (data.success) {
-                alert("Product added successfully!");
-                location.reload(); // Reload the page to display the new product
-            } else {
-                alert("Error adding product: " + data.message);
-            }
-        })
-        .catch(error => {
-            console.error("Error adding product:", error);
-        });
+
+
+  // FAQ Accordions
+  const accordions = document.querySelectorAll(".accordion");
+  accordions.forEach((accordion) => {
+    const question = accordion.querySelector(".question");
+    const arrow = accordion.querySelector(".arrow");
+    const answer = accordion.querySelector(".answer");
+
+    question.addEventListener("click", () => {
+      const isActive = accordion.classList.contains("active");
+
+      accordions.forEach((acc) => {
+        acc.classList.remove("active");
+        acc.querySelector(".arrow").classList.remove("active");
+        acc.querySelector(".answer").style.maxHeight = null;
+      });
+
+      if (!isActive) {
+        accordion.classList.add("active");
+        arrow.classList.add("active");
+        answer.style.maxHeight = answer.scrollHeight + "px";
+      } else {
+        accordion.classList.remove("active");
+        arrow.classList.remove("active");
+        answer.style.maxHeight = null;
+      }
     });
-});
-
-
-
+  });
 
   //clock
   function updateClock() {
@@ -141,7 +154,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
   setInterval(updateClock, 1000); // Update the clock every second
   updateClock(); // Initial call to display the clock immediately
-});
+
 
 //pop up message on cards
 document.addEventListener("DOMContentLoaded", function () {
