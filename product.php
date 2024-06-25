@@ -1,0 +1,186 @@
+<?php
+$servername = "localhost:3307";
+$username = "root";
+$password = "";
+$dbname = "sse3308";
+
+// Connect to the database
+$conn = new mysqli($servername, $username, $password, $dbname);
+
+// Check connection
+if ($conn->connect_error) {
+    die("Connection failed: " . $conn->connect_error);
+}
+
+// Handle POST request to add new product
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    // Collect input data
+    $name = $_POST["name"];
+    $price = $_POST["price"];
+    $image = $_POST["image"];
+    $description = $_POST["description"];
+    $ingredients = $_POST["ingredients"];
+    $serving_size = $_POST["serving_size"];
+    $calories = $_POST["calories"];
+    $total_fat_value = $_POST["total_fat_value"];
+    $total_fat_percent = $_POST["total_fat_percent"];
+    $cholesterol_percent = $_POST["cholesterol_percent"];
+    $sodium_value = $_POST["sodium_value"];
+    $sodium_percent = $_POST["sodium_percent"];
+    $total_carbohydrate_value = $_POST["total_carbohydrate_value"];
+    $total_carbohydrate_percent = $_POST["total_carbohydrate_percent"];
+    $dietary_fiber_value = $_POST["dietary_fiber_value"];
+    $dietary_fiber_percent = $_POST["dietary_fiber_percent"];
+    $sugars_value = $_POST["sugars_value"];
+    $sugars_percent = $_POST["sugars_percent"];
+    $protein_value = $_POST["protein_value"];
+    $protein_percent = $_POST["protein_percent"];
+
+    // Insert product into the database
+    $sql = "INSERT INTO product_info (name, price, image, description, ingredients, serving_size, calories, total_fat_value, total_fat_percent, cholesterol_percent, sodium_value, sodium_percent, total_carbohydrate_value, total_carbohydrate_percent, dietary_fiber_value, dietary_fiber_percent, sugars_value, sugars_percent, protein_value, protein_percent)
+            VALUES ('$name', '$price', '$image', '$description', '$ingredients', '$serving_size', $calories, $total_fat_value, $total_fat_percent, $cholesterol_percent, $sodium_value, $sodium_percent, $total_carbohydrate_value, $total_carbohydrate_percent, $dietary_fiber_value, $dietary_fiber_percent, $sugars_value, $sugars_percent, $protein_value, $protein_percent)";
+
+    if ($conn->query($sql) === TRUE) {
+        echo json_encode(["success" => true]);
+    } else {
+        echo json_encode(["success" => false, "message" => $conn->error]);
+    }
+
+    $conn->close();
+    exit;
+}
+
+// Fetch products from database
+$sql = "SELECT * FROM product_info";
+$result = $conn->query($sql);
+?>
+
+
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>Product Page</title>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css"
+        integrity="sha384-TX8t27EcRE3e/ihU7zmQxVncDAy5uIKz4rEkgIXeMed4M0jlfIDPvg6uqKI2xXr2" crossorigin="anonymous">
+    <link rel="stylesheet" href="/css/productstyle.css">
+    <link rel="stylesheet" href="/css/sharedstyle.css">
+</head>
+    <script src="main.js" defer></script>
+</head>
+<body>
+    <div id="trailer"></div>
+    <!-- Navigation bar -->
+    <!-- (nav bar coding done here) -->
+
+    <!-- Products -->
+    <h1>All Products</h1>
+    <div class="row products">
+        <?php
+        if ($result->num_rows > 0) {
+            // Output data of each row
+            while($row = $result->fetch_assoc()) {
+                echo '<div class="wrapper">';
+                echo '    <div class="container" data-id="' . $row["id"] . '">';
+                echo '        <div class="top" style="background: url(\'' . $row["image"] . '\') no-repeat center; background-size: 60%;"></div>';
+                echo '        <div class="bottom">';
+                echo '            <div class="left">';
+                echo '                <div class="details">';
+                echo '                    <h2>' . $row["name"] . '</h2>';
+                echo '                    <p>' . $row["price"] . '</p>';
+                echo '                </div>';
+                echo '                <div class="buy"><img src="/img/cart.png" alt="Cart Icon"></div>';
+                echo '            </div>';
+                echo '        </div>';
+                echo '    </div>';
+                echo '</div>';
+            }
+        } else {
+            echo "0 results";
+        }
+        $conn->close();
+        ?>
+    </div>
+
+    <!-- Add New Product Button -->
+    <div class="button-container">
+        <button id="addProductBtn">Add New Product</button>
+    </div>
+
+    <!-- Add New Product Form (hidden by default) -->
+    <div id="addProductForm" style="display: none;">
+        <h2>Add New Product</h2>
+        <form id="newProductForm">
+            <!-- Form fields -->
+            <label for="name">Name:</label>
+            <input type="text" id="name" name="name" required><br>
+
+            <label for="price">Price:</label>
+            <input type="text" id="price" name="price" required><br>
+
+            <label for="image">Image URL:</label>
+            <input type="text" id="image" name="image" required><br>
+
+            <label for="description">Description:</label>
+            <textarea id="description" name="description" required></textarea><br>
+
+            <label for="ingredients">Ingredients (comma separated):</label>
+            <input type="text" id="ingredients" name="ingredients" required><br>
+
+            <label for="serving_size">Serving Size:</label>
+            <input type="text" id="serving_size" name="serving_size" required><br>
+
+            <label for="calories">Calories:</label>
+            <input type="number" id="calories" name="calories" required><br>
+
+            <label for="total_fat_value">Total Fat Value (g):</label>
+            <input type="number" id="total_fat_value" name="total_fat_value" required><br>
+
+            <label for="total_fat_percent">Total Fat Percent (%):</label>
+            <input type="number" id="total_fat_percent" name="total_fat_percent" required><br>
+
+            <label for="cholesterol_percent">Cholesterol Percent (%):</label>
+            <input type="number" id="cholesterol_percent" name="cholesterol_percent" required><br>
+
+            <label for="sodium_value">Sodium Value (mg):</label>
+            <input type="number" id="sodium_value" name="sodium_value" required><br>
+
+            <label for="sodium_percent">Sodium Percent (%):</label>
+            <input type="number" id="sodium_percent" name="sodium_percent" required><br>
+
+            <label for="total_carbohydrate_value">Total Carbohydrate Value (g):</label>
+            <input type="number" id="total_carbohydrate_value" name="total_carbohydrate_value" required><br>
+
+            <label for="total_carbohydrate_percent">Total Carbohydrate Percent (%):</label>
+            <input type="number" id="total_carbohydrate_percent" name="total_carbohydrate_percent" required><br>
+
+            <label for="dietary_fiber_value">Dietary Fiber Value (g):</label>
+            <input type="number" id="dietary_fiber_value" name="dietary_fiber_value" required><br>
+
+            <label for="dietary_fiber_percent">Dietary Fiber Percent (%):</label>
+            <input type="number" id="dietary_fiber_percent" name="dietary_fiber_percent" required><br>
+
+            <label for="sugars_value">Sugars Value (g):</label>
+            <input type="number" id="sugars_value" name="sugars_value" required><br>
+
+            <label for="sugars_percent">Sugars Percent (%):</label>
+            <input type="number" id="sugars_percent" name="sugars_percent" required><br>
+
+            <label for="protein_value">Protein Value (g):</label>
+            <input type="number" id="protein_value" name="protein_value" required><br>
+
+            <label for="protein_percent">Protein Percent (%):</label>
+            <input type="number" id="protein_percent" name="protein_percent" required><br>
+
+            <input type="submit" value="Add Product">
+        </form>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <!-- Footer content here -->
+    </footer>
+</body>
+</html>

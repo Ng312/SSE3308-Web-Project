@@ -28,7 +28,7 @@
                 <ul class="navbar-nav ml-auto">
                     <li class="nav-item"><a class="nav-link" href="index.html">Home</a></li>
                     <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="product.html" id="navbarDropdown" role="button" aria-haspopup="true" aria-expanded="false">Products</a>
+                        <a class="nav-link dropdown-toggle" href="product.php" id="navbarDropdown" role="button" aria-haspopup="true" aria-expanded="false">Products</a>
                         <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                             <a class="dropdown-item" href="product.html">Peanut Butter</a>
                             <a class="dropdown-item" href="product.html">Almond Butter</a>
