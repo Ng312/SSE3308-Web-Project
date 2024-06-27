@@ -91,11 +91,11 @@ $result = $conn->query($sql);
                             Products
                         </a>
                         <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                            <a class="dropdown-item" href="product.html">Peanut Butter</a>
-                            <a class="dropdown-item" href="product.html">Almond Butter</a>
-                            <a class="dropdown-item" href="product.html">Pistachio Butter</a>
-                            <a class="dropdown-item" href="product.html">Cashew Butter</a>
-                            <a class="dropdown-item" href="product.html">Gift Set</a>
+                            <a class="dropdown-item" href="show_product.php">Peanut Butter</a>
+                            <a class="dropdown-item" href="show_product.php">Almond Butter</a>
+                            <a class="dropdown-item" href="show_product.php">Pistachio Butter</a>
+                            <a class="dropdown-item" href="show_product.php">Cashew Butter</a>
+                            <a class="dropdown-item" href="show_product.php">Gift Set</a>
                         </div>
                     </li>
                     <li class="nav-item"><a class="nav-link" href="faq.html">FAQs</a></li>
